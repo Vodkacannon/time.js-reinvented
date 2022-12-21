@@ -14,6 +14,8 @@ const days_in_leap_year_month_average = days_in_leap_year / days_in_month_averag
 const days_in_leap_year = days_in_year + one_day;
 
 const one_second = 1;
+const miliseconds_in_second = one_second * 1000;
+const miliseconds_in_minute = miliseconds_in_second * seconds_in_minute;
 const seconds_in_minute = one_second * 60;
 const seconds_in_hour = seconds_in_minute * minutes_in_day;
 const hours_in_day = 24;
@@ -75,4 +77,24 @@ function get_minutes_in_year(year) {
 function get_hours_in_year(year) {
     if (is_leap_year(year)) { return hours_in_leap_year; }
     else { return hours_in_year; }
+}
+
+function seconds_between_hours(hour1, hour2) {
+    return (hour2 - hour1) * seconds_in_hour;
+}
+
+function minutes_between_hours(hour1, hour2) {
+    return (hour2 - hour1) * minutes_in_hour;
+}
+
+async function sleep_for_miliseconds(miliseconds) {
+    return new Promise(resolve => setTimeout(resolve, miliseconds_in_second));
+}
+
+async function sleep_for_seconds(seconds) {
+    return new Promise(resolve => setTimeout(resolve, seconds * miliseconds_in_second));
+}
+
+async function sleep_for_minutes(minutes) {
+    return new Promise(resolve => setTimeout(resolve, seconds * miliseconds_in_minute));
 }
