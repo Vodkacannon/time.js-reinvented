@@ -14,17 +14,15 @@ const days_in_leap_year_month_average = days_in_leap_year / days_in_month_averag
 const days_in_leap_year = days_in_year + one_day;
 
 const one_second = 1;
-const seconds_in_minute = 60;
-const minute_seconds = one_second * seconds_in_minute;
-const seconds_in_hour = 60;
-const hour_seconds = minute_seconds * seconds_in_hour;
+const seconds_in_minute = one_second * 60;
+const seconds_in_hour = seconds_in_minute * minutes_in_day;
 const hours_in_day = 24;
 
-const one_day_seconds = hour_seconds * hours_in_day;
-const one_week_seconds = one_day_seconds * days_in_week;
-const one_year_seconds = one_week_seconds * days_in_year;
+const seconds_in_day = seconds_in_hour * hours_in_day;
+const seconds_in_week = seconds_in_day * days_in_week;
+const seconds_in_year = seconds_in_week * days_in_year;
 
-const leap_year_seconds = one_year_seconds + day_seconds;
+const seconds_in_leap_year = seconds_in_year + seconds_in_day;
 
 const minutes_in_hour = 60;
 const minutes_in_day = minutes_in_hour * hours_in_day;
@@ -53,6 +51,28 @@ function days_in_month_of_year(month, year) {
 }
 
 function seconds_in_month_of_year(month, year) {
-    return days_in_month_of_year(month, year) * day_sec;
+    return days_in_month_of_year(month, year) * seconds_in_day;
 }
 
+function minutes_in_month_of_year(month, year) {
+    return days_in_month_of_year(month, year) * minutes_in_day;
+}
+
+function hours_in_month_of_year(month, year) {
+    return days_in_month_of_year(month, year) * hours_in_day;
+}
+
+function get_seconds_in_year(year) {
+    if (is_leap_year(year)) return seconds_in_leap_year;
+    else return seconds_in_year;
+}
+
+function get_minutes_in_year(year) {
+    if (is_leap_year(year)) return minutes_in_leap_year;
+    else return minutes_in_year;
+}
+
+function get_hours_in_year(year) {
+    if (is_leap_year(year)) { return hours_in_leap_year; }
+    else { return hours_in_year; }
+}
