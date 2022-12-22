@@ -36,6 +36,15 @@ const hours_in_week = hours_in_day * days_in_week;
 const hours_in_year = hours_in_day * days_in_year;
 const hours_in_leap_year = hours_in_day * days_in_leap_year;
 
+const am_lowercase = "am";
+const am_uppercase = "AM";
+const pm_lowercase = "pm";
+const pm_uppercase = "PM";
+const am_period_lowercase = "a.m.";
+const am_period_uppercase = "A.M.";
+const pm_period_lowercase = "p.m.";
+const pm_period_uppercase = "P.M.";
+
 function is_leap_year(year) {
     if (year % 4 != 0) return false;
     else if (year % 100 != 0) return true;
@@ -97,4 +106,29 @@ async function sleep_for_seconds(seconds) {
 
 async function sleep_for_minutes(minutes) {
     return new Promise(resolve => setTimeout(resolve, seconds * miliseconds_in_minute));
+}
+
+class Date {
+    constructor(year, month, day, hour, minute, second, is_pm) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.hour = hour;
+        this.minute = minute;
+        this.second = second;
+        this.is_pm = is_pm;
+    }
+}
+
+function get_date() {
+    var date = new Date();
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
+}
+
+function get_difference_in_seconds(date1, date2) {
+    let seconds = 0;
+    seconds += seconds_between_hours(date1.hour, date2.hour);
+    seconds += (date2.minute - date1.minute) * seconds_in_minute;
+    seconds += (date2.second - date1.second);
+    return seconds;
 }
