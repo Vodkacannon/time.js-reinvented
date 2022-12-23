@@ -154,6 +154,7 @@ function difference_between_dates_as_seconds(date_one, date_two) {
     return seconds;
 }
 
+
 function difference_between_dates_as_minutes(date_one, date_two) {
     let minutes = 0;
     minutes += minutes_between_years(date_one.year, date_two.year);
