@@ -257,6 +257,7 @@ function difference_between_dates_as_seconds(date_one, date_two) {
     return seconds;
 }
 
+
 function difference_between_dates_as_minutes(date_one, date_two) {
     let minutes = 0;
 
@@ -269,6 +270,7 @@ function difference_between_dates_as_minutes(date_one, date_two) {
     return minutes;
 }
 
+
 function difference_between_dates_as_hours(date_one, date_two) {
     let hours = 0;
 
@@ -280,6 +282,7 @@ function difference_between_dates_as_hours(date_one, date_two) {
     return hours;
 }
 
+
 function difference_between_dates_as_days(date_one, date_two) {
     let days = 0;
 
@@ -290,6 +293,7 @@ function difference_between_dates_as_days(date_one, date_two) {
     return days;
 }
 
+
 function difference_between_dates_as_weeks(date_one, date_two) {
     let weeks = 0;
 
@@ -299,6 +303,7 @@ function difference_between_dates_as_weeks(date_one, date_two) {
 
     return weeks;
 }
+
 
 function difference_between_dates_as_months(date_one, date_two) {
     let months = 0;
