@@ -1,7 +1,7 @@
 //A module for time related functions.
 //Please see LICENSE.txt for MIT license information.
 
-//Various time constants in order of precedence.
+//Various timing constants.
 const one_day = 1;
 const days_in_week = 7 * one_day;
 
@@ -103,9 +103,84 @@ function seconds_between_days(day_one, day_two) {
     return (day_two - day_one) * seconds_in_day;
 }
 
-//This will take some work due to the fact that months are not all the same length.
-function seconds_between_months(month_one, month_two) {
-    return (month_two - month_one) * seconds_in_month;
+function seconds_between_months(month_one, month_two, year) {
+    let total_seconds = 0;
+
+    if (month_one < month_two) {
+        for (let i = month_one; i < month_two; i++) {
+            total_seconds += seconds_in_month_of_a_year(i, year);
+        }
+    }
+    else {
+        for (let i = month_two; i < month_one; i++) {
+            total_seconds += seconds_in_month_of_a_year(i, year);
+        }
+    }
+    return total_seconds;
+}
+
+function minutes_between_months(month_one, month_two, year) {
+    let total_minutes = 0;
+
+    if (month_one < month_two) {
+        for (let i = month_one; i < month_two; i++) {
+            total_minutes += minutes_in_month_of_a_year(i, year);
+        }
+    }
+    else {
+        for (let i = month_two; i < month_one; i++) {
+            total_minutes += minutes_in_month_of_a_year(i, year);
+        }
+    }
+    return total_minutes;
+}
+
+function hours_between_months(month_one, month_two, year) {
+    let total_hours = 0;
+
+    if (month_one < month_two) {
+        for (let i = month_one; i < month_two; i++) {
+            total_hours += hours_in_month_of_a_year(i, year);
+        }
+    }
+    else {
+        for (let i = month_two; i < month_one; i++) {
+            total_hours += hours_in_month_of_a_year(i, year);
+        }
+    }
+    return total_hours;
+}
+
+function days_between_months(month_one, month_two, year) {
+    let total_days = 0;
+
+    if (month_one < month_two) {
+        for (let i = month_one; i < month_two; i++) {
+            total_days += days_in_month_of_year(i, year);
+        }
+    }
+    else {
+        for (let i = month_two; i < month_one; i++) {
+            total_days += days_in_month_of_year(i, year);
+        }
+    }
+    return total_days;
+}
+
+function weeks_between_months(month_one, month_two, year) {
+    let total_weeks = 0;
+
+    if (month_one < month_two) {
+        for (let i = month_one; i < month_two; i++) {
+            total_weeks += weeks_in_month_of_a_year(i, year);
+        }
+    }
+    else {
+        for (let i = month_two; i < month_one; i++) {
+            total_weeks += weeks_in_month_of_a_year(i, year);
+        }
+    }
+    return total_weeks;
 }
 
 function seconds_between_years(year_one, year_two) {
@@ -147,13 +222,16 @@ function get_date() {
 
 function difference_between_dates_as_seconds(date_one, date_two) {
     let seconds = 0;
+
     seconds += seconds_between_years(date_one.year, date_two.year);
+    seconds += seconds_between_months(date_one.month, date_two.month, date_one.year);
+    seconds += seconds_between_days(date_one.day, date_two.day);
     seconds += seconds_between_hours(date_one.hour, date_two.hour);
     seconds += seconds_between_minutes(date_one.minute, date_two.minute);
     seconds += (date2.second - date1.second);
+
     return seconds;
 }
-
 
 function difference_between_dates_as_minutes(date_one, date_two) {
     let minutes = 0;
