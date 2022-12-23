@@ -51,6 +51,7 @@ function is_leap_year(year) {
     else return true;
 }
 
+
 function days_in_month_of_year(month, year) {
     if (month == 2) {
         if (is_leap_year(year)) { return 29; }
@@ -60,48 +61,59 @@ function days_in_month_of_year(month, year) {
     else return 31;
 }
 
+
 function seconds_in_month_of_a_year(month, year) {
     return days_in_month_of_year(month, year) * seconds_in_day;
 }
+
 
 function minutes_in_month_of_a_year(month, year) {
     return days_in_month_of_year(month, year) * minutes_in_day;
 }
 
+
 function hours_in_month_of_a_year(month, year) {
     return days_in_month_of_year(month, year) * hours_in_day;
 }
 
+
 function weeks_in_month_of_a_year(month, year) {
     return days_in_month_of_year(month, year) / days_in_week;
 }
+
 
 function get_seconds_in_year(year) {
     if (is_leap_year(year)) return seconds_in_leap_year;
     else return seconds_in_year;
 }
 
+
 function get_minutes_in_year(year) {
     if (is_leap_year(year)) return minutes_in_leap_year;
     else return minutes_in_year;
 }
+
 
 function get_hours_in_year(year) {
     if (is_leap_year(year)) { return hours_in_leap_year; }
     else { return hours_in_year; }
 }
 
+
 function seconds_between_minutes(minute_one, minute_two) {
     return (minute_one - minute_two) * seconds_in_minute;
 }
+
 
 function seconds_between_hours(hour_one, hour_two) {
     return (hour_two - hour_one) * seconds_in_hour;
 }
 
+
 function seconds_between_days(day_one, day_two) {
     return (day_two - day_one) * seconds_in_day;
 }
+
 
 function seconds_between_months(month_one, month_two, year) {
     let total_seconds = 0;
@@ -119,6 +131,7 @@ function seconds_between_months(month_one, month_two, year) {
     return total_seconds;
 }
 
+
 function minutes_between_months(month_one, month_two, year) {
     let total_minutes = 0;
 
@@ -134,6 +147,7 @@ function minutes_between_months(month_one, month_two, year) {
     }
     return total_minutes;
 }
+
 
 function hours_between_months(month_one, month_two, year) {
     let total_hours = 0;
@@ -151,6 +165,7 @@ function hours_between_months(month_one, month_two, year) {
     return total_hours;
 }
 
+
 function days_between_months(month_one, month_two, year) {
     let total_days = 0;
 
@@ -166,6 +181,7 @@ function days_between_months(month_one, month_two, year) {
     }
     return total_days;
 }
+
 
 function weeks_between_months(month_one, month_two, year) {
     let total_weeks = 0;
@@ -183,25 +199,31 @@ function weeks_between_months(month_one, month_two, year) {
     return total_weeks;
 }
 
+
 function seconds_between_years(year_one, year_two) {
     return (year_two - year_one) * seconds_in_year;
 }
+
 
 function minutes_between_hours(hour_one, hour_two) {
     return (hour_two - hour_one) * minutes_in_hour;
 }
 
+
 async function sleep_for_miliseconds(miliseconds) {
     return new Promise(resolve => setTimeout(resolve, miliseconds_in_second));
 }
+
 
 async function sleep_for_seconds(seconds) {
     return new Promise(resolve => setTimeout(resolve, seconds * miliseconds_in_second));
 }
 
+
 async function sleep_for_minutes(minutes) {
     return new Promise(resolve => setTimeout(resolve, seconds * miliseconds_in_minute));
 }
+
 
 class Date {
     constructor(year, month, day, hour, minute, second, is_pm) {
@@ -215,10 +237,12 @@ class Date {
     }
 }
 
+
 function get_date() {
     var date = new Date();
     return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
 }
+
 
 function difference_between_dates_as_seconds(date_one, date_two) {
     let seconds = 0;
@@ -235,8 +259,52 @@ function difference_between_dates_as_seconds(date_one, date_two) {
 
 function difference_between_dates_as_minutes(date_one, date_two) {
     let minutes = 0;
+
     minutes += minutes_between_years(date_one.year, date_two.year);
+    minutes += minutes_between_months(date_one.month, date_two.month, date_one.year);
+    minutes += minutes_between_days(date_one.day, date_two.day);
     minutes += minutes_between_hours(date_one.hour, date_two.hour);
-    minutes += (date_two.minute - date_one.minute);
+    minutes += (date2.minute - date1.minute);
+
     return minutes;
+}
+
+function difference_between_dates_as_hours(date_one, date_two) {
+    let hours = 0;
+
+    hours += hours_between_years(date_one.year, date_two.year);
+    hours += hours_between_months(date_one.month, date_two.month, date_one.year);
+    hours += hours_between_days(date_one.day, date_two.day);
+    hours += (date2.hour - date1.hour);
+
+    return hours;
+}
+
+function difference_between_dates_as_days(date_one, date_two) {
+    let days = 0;
+
+    days += days_between_years(date_one.year, date_two.year);
+    days += days_between_months(date_one.month, date_two.month, date_one.year);
+    days += (date2.day - date1.day);
+
+    return days;
+}
+
+function difference_between_dates_as_weeks(date_one, date_two) {
+    let weeks = 0;
+
+    weeks += weeks_between_years(date_one.year, date_two.year);
+    weeks += weeks_between_months(date_one.month, date_two.month, date_one.year);
+    weeks += (date2.day - date1.day) / days_in_week;
+
+    return weeks;
+}
+
+function difference_between_dates_as_months(date_one, date_two) {
+    let months = 0;
+
+    months += months_between_years(date_one.year, date_two.year);
+    months += (date2.month - date1.month);
+
+    return months;
 }
