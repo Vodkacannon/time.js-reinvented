@@ -44,6 +44,8 @@ const am_period_uppercase = "A.M.";
 const pm_period_lowercase = "p.m.";
 const pm_period_uppercase = "P.M.";
 
+const epoch_date = DateReinvented(1970, 1, 1, 0, 0, 0, 0);
+
 function is_leap_year(year) {
     if (year % 4 != 0) return false;
     else if (year % 100 != 0) return true;
@@ -225,7 +227,7 @@ async function sleep_for_minutes(minutes) {
 }
 
 
-class Date {
+DateReinvented = class {
     constructor(year, month, day, hour, minute, second, is_pm) {
         this.year = year;
         this.month = month;
@@ -235,12 +237,30 @@ class Date {
         this.second = second;
         this.is_pm = is_pm;
     }
-}
 
 
-function get_date() {
-    var date = new Date();
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
+    get_date_string(am_pm_type, is_space_between_am_pm_and_time) {
+        if (is_space_between_am_pm_and_time) {
+            return this.year + "-" + this.month + "-" + this.day + " " + this.hour + ":" + this.minute + ":" + this.second + " " + am_pm_type;
+        } else {
+            return this.year + "-" + this.month + "-" + this.day + " " + this.hour + ":" + this.minute + ":" + this.second + am_pm_type;
+        }
+    }
+
+
+    set_date(year, month, day, hour, minute, second, is_pm) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.hour = hour;
+        this.minute = minute;
+        this.second = second;
+        this.is_pm = is_pm;
+    }
+
+    seconds_since_epoch(date_two) {
+        return difference_between_dates_as_seconds(epoch_date, date_two);
+    }
 }
 
 
@@ -309,7 +329,8 @@ function difference_between_dates_as_months(date_one, date_two) {
     let months = 0;
 
     months += months_between_years(date_one.year, date_two.year);
-    months += (date2.month - date1.month);
+    months += date2.month - date1.month;
 
     return months;
 }
+
