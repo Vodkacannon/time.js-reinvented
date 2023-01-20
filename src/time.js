@@ -3,7 +3,7 @@
 
 //Various timing constants.
 const one_day = 1;
-const days_in_week = 7 * one_day;
+const days_in_week = 7;
 
 const weeks_in_year = 52;
 const days_in_year = weeks_in_year * days_in_week;
@@ -334,3 +334,68 @@ function difference_between_dates_as_months(date_one, date_two) {
     return months;
 }
 
+Clock = class {
+    constructor(year, month, day, hour, minute, second, is_pm) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.hour = hour;
+        this.minute = minute;
+        this.second = second;
+        this.is_pm = is_pm;
+        this.is_running = false;
+    }
+
+    loop() {
+        while (this.is_running) {
+            sleep_for_seconds(1);
+            this.second += 1;
+        }
+    }
+
+    start() {
+        this.year = new Date().getFullYear();
+        this.month = new Date().getMonth() + 1;
+        this.day = new Date().getDate();
+        this.hour = new Date().getHours();
+        this.minute = new Date().getMinutes();
+        this.second = new Date().getSeconds();
+        sleep_for_seconds(1);
+        loop();
+    }
+
+    update_clock() {
+        if (this.month % months_in_year == 0) {
+            this.month = 1;
+        }
+
+        if (this.day % days_in_month_of_year(this.year) == 0) {
+            this.day = 1;
+            this.month += 1;
+        }
+
+        if (this.hour % hours_in_day == 0) {
+            this.hour = 1;
+            this.day += 1;
+        }
+
+        if (this.minute % minutes_in_hour == 0) {
+            this.minute = 0;
+            this.hour += 1;
+        }
+
+        if (this.second % seconds_in_minute == 0) {
+            this.second = 0;
+            this.minute += 1;
+        }
+
+        if (this.second == seconds_in_minute && this.minute == minutes_in_hour && this.hour == hours_in_day && this.day == days_in_month_of_year(year) && this.month == months_in_year) {
+            this.second = 0;
+            this.minute = 0;
+            this.hour = 12;
+            this.day = 1;
+            this.month = 1;
+            this.year += 1;
+        }
+    }
+}
