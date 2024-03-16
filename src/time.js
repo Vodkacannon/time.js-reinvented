@@ -1,3 +1,4 @@
+//This code is not gauranteed to be bug free.
 //A module for time related functions.
 //Please see LICENSE.txt for MIT license information.
 
